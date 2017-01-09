@@ -2,38 +2,27 @@ import re
 
 
 class EmailAddressChecker():
-    def __init__(self):
-        self.emailName = self.getUserInput()
-        self.printUserInput()
-        self.checkEmailAddress()
-
-    def getUserInput(self):
-        userInput = input('Key in an email address: ')
-        return userInput
-
-    def printUserInput(self):
-        print('Your email address: ' + self.emailName)
+    def __init__(self, emailName):
+        self.emailName = emailName
 
     def checkEmailAddress(self):
         if self.checkEmailMouse() is False:
             checkResult = False
         else:
-            emailFrag = self.splitEmailAddress()
+            emailFrag = self.getSplitedEmailAddress()
             emailUserName = emailFrag[0]
             emailDomainName = emailFrag[1]
             checkResult = (self.checkEmailLocalPart(emailUserName)
                            & self.checkEmailDomain(emailDomainName))
 
-        self.printEmailAddressResult(checkResult)
+        self.printCheckResult(checkResult)
 
     def checkEmailMouse(self):
         numOfMouse = len(re.findall('@', self.emailName))
         return(True if numOfMouse == 1 else False)
 
-    def splitEmailAddress(self):
-        emailFrag = []
-        emailFrag = self.emailName.split('@')
-        return emailFrag
+    def getSplitedEmailAddress(self):
+        return self.emailName.split('@')
 
     def checkEmailLocalPart(self, emailLocalPart):
         ###
