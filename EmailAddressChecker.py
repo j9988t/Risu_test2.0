@@ -29,7 +29,6 @@ class EmailAddressChecker():
 
     def checkEmailLocalPart(self, emailLocalPart):
         ###
-
         return True
 
     def checkEmailDomain(self, emailDomain):
@@ -41,6 +40,9 @@ class EmailAddressChecker():
         emailFrag = self.emailName.split('@')
         return emailFrag
 
-    def printEmailAddressResult(self, checkResult):
-        print('Your email address is ' +
-              ('ACCEPTED !' if checkResult == True else 'REJECTED !'))
+    def printCheckResult(self, checkResult):
+        print('Your email address is ', end='')
+        if checkResult is True:
+            print('ACCEPTED!')
+        else:
+            print('REJECTED!')
