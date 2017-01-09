@@ -16,11 +16,14 @@ class EmailAddressChecker():
 
     def checkEmailAddress(self):
         if self.checkEmailMouse() is False:
-            self.printEmailAddressResult(False)
-            return
-        emailFrag = self.splitEmailAddress()
-        checkResult = (self.checkEmailLocalPart(emailFrag[0])
-                       & self.checkEmailDomain(emailFrag[1]))
+            checkResult = False
+        else:
+            emailFrag = self.splitEmailAddress()
+            emailUserName = emailFrag[0]
+            emailDomainName = emailFrag[1]
+            checkResult = (self.checkEmailLocalPart(emailUserName)
+                           & self.checkEmailDomain(emailDomainName))
+
         self.printEmailAddressResult(checkResult)
 
     def checkEmailMouse(self):
