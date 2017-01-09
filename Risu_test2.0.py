@@ -1,7 +1,7 @@
 def main():
-    #userInput = 'j9988t@hotmail.com'
-    #eac = EmailAddressChecker(userInput)
-    #print(eac.emailName)
+    # userInput = 'j9988t@hotmail.com'
+    # eac = EmailAddressChecker(userInput)
+    # print(eac.emailName)
     eac = EmailAddressChecker()
 
 
