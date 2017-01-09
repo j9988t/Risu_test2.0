@@ -15,7 +15,7 @@ class EmailAddressChecker():
         print('Your email address: ' + self.emailName)
 
     def checkEmailAddress(self):
-        if self.checkEmailMouse() == False:
+        if self.checkEmailMouse() is False:
             self.printEmailAddressResult(False)
             return
         emailFrag = self.splitEmailAddress()
@@ -27,6 +27,11 @@ class EmailAddressChecker():
         numOfMouse = len(re.findall('@', self.emailName))
         return(True if numOfMouse == 1 else False)
 
+    def splitEmailAddress(self):
+        emailFrag = []
+        emailFrag = self.emailName.split('@')
+        return emailFrag
+
     def checkEmailLocalPart(self, emailLocalPart):
         ###
         return True
@@ -34,11 +39,6 @@ class EmailAddressChecker():
     def checkEmailDomain(self, emailDomain):
         ###
         return False
-
-    def splitEmailAddress(self):
-        emailFrag = []
-        emailFrag = self.emailName.split('@')
-        return emailFrag
 
     def printCheckResult(self, checkResult):
         print('Your email address is ', end='')
