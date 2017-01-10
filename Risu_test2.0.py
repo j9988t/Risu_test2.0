@@ -1,3 +1,5 @@
+from EmailAddressChecker import EmailAddressChecker
+
 def main():
     # userInput = 'j9988t@hotmail.com'
     # eac = EmailAddressChecker(userInput)

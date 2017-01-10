@@ -8,7 +8,7 @@ class EmailAddressChecker():
         self.checkEmailAddress()
 
     def getUserInput(self):
-        userInput = raw_input('Key in an email address: ')
+        userInput = input('Key in an email address: ')
         return userInput
 
     def printUserInput(self):
