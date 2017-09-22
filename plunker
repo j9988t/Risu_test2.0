@@ -1,1 +1,66 @@
 https://plnkr.co/edit/aDmX7cbCPjaGSMjDUEwG?p=preview
+--
+<div id="chart_div"></div>
+--
+google.load('visualization', '1.5', {
+    packages: ['columnchart']
+});
+google.setOnLoadCallback(drawVisualization);
+
+function strToArr(str) {
+    var arr = [];
+    var rows = str.split("|");
+    for (var i = 0; i < rows.length; i++) {
+        var row = [];
+        var regex = new RegExp("^\"(.*)\"$");
+        var values = rows[i].split(",");
+        for (var j = 0; j < values.length; j++) {
+            var value = values[j].trim();
+            row.push(regex.test(value) 
+                    ? RegExp.$1 
+                    : parseInt(value, 10));
+        }
+        arr.push(row);
+    }
+    return arr;
+}
+
+function drawVisualization(dataArr) {
+    //var data = google.visualization.arrayToDataTable(dataArr);
+     var dataTable = new google.visualization.DataTable();
+        dataTable.addColumn('string', 'Year');
+    dataTable.addColumn('number', 'Sales');
+    dataTable.addColumn({type: 'string', role: 'tooltip'});
+    dataTable.addColumn('number', 'Expenses');
+    dataTable.addColumn({type: 'string', role: 'tooltip'});
+    dataTable.addRows([
+      ['2003', 1000, '1M$ sales in \n2004', 400,  '$0.4M expenses in 2004'],
+      ['2005', 1170, '1.17M$ sales in 2005', 460, '$0.46M expenses in 2005'],
+      ['2006', 660,  '.66$ sales in 2006', 1120, '$1.12M expenses in 2006'],
+      ['2007', 1030, '1.03M$ sales in 2007', 540, '$0.54M expenses in 2007']
+    ]);
+
+    var options = {
+        title: 'Company Performance',
+        hAxis: {
+            title: 'Year',
+            titleTextStyle: {
+                color: 'red'
+            }
+        },
+        width: 400, 
+        height: 240
+    };
+    // Create and draw the visualization.
+    new google.visualization.LineChart(document.getElementById('chart_div')).draw(dataTable, options);
+}
+
+$(document).ready(function() {
+    $("a.chartLink").each(function() {
+        var dataArr = strToArr(this.dataset.chartData);
+        $(this).fancybox({
+           'hideOnContentClick': true,
+            onComplete: function() { drawVisualization(dataArr); }
+        });
+    });
+});
