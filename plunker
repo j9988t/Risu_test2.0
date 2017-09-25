@@ -73,39 +73,86 @@ $(document).ready(function() {
 
 --
 <div ng-controller="MyCtrl" >
+  <table>
+  <thead>
+        <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Height</th>
+            <th>Born</th>
+            <th>Salary</th>
+        </tr>
+    </thead>
+    <tbody>
+  <tr>
+  <td>Threshold</td>
+  <td><input type="text" ng-model="thresLambdaQT" placeholder="enter a color name"></td>
+  <td><input type="text" ng-model="thresMarathonQT" placeholder="enter a color name">  </td>
+    
+  </tr>
+  </tbody>
+  
+  
+  <tbody data-ng-repeat="i in [1,2,3,4,5]">
+    <tr ng-repeat="item in items">
+      
+        <td>{{item.name}}</td>
+        <td><span class="ng-style: item.lambdaQueueTime > thresLambdaQT && !!thresLambdaQT && {color:'red'};">{{item.lambdaQueueTime}}</span></td>
+        <td><span class="ng-style: item.marathonQueueTime > thresMarathonQT && !!thresMarathonQT && {color:'red'};">{{item.marathonQueueTime}}</span></td>
+        
+      
+    </tr>
+   
+    
+    </tbody>
+  </table>
 
-    <input type="text" ng-model="isT" placeholder="enter a color name">
-
-    <div ng-repeat="item in items" ng-class="{'pending-delete': item.checked}">
-    <span class="ng-style: item.title < isT && {color:'red'};">
-      name: {{item.name}}, {{item.title}}
-      </span>
-        <input type="checkbox" ng-model="isT"> <span ng-show="item.checked">(will be deleted)</span>
-   </div>
-   <p>
-   <div ng-hide="myColor== 'red'">I will hide if the color is set to 'red'.</div>
-   <span class="ng-style: isT=='1' && {color:'red'};">
-     <td>Sample Text</td>
-   </span>
 </div>
+
+<style type="text/css">
+
+{
+    border: solid 1px #DDEEEE;
+    border-collapse: collapse;
+    border-spacing: 0;
+    font: normal 13px Arial, sans-serif;
+}
+thead th {
+    background-color: #DDEFEF;
+    border: solid 1px #DDEEEE;
+    color: #336B6B;
+    padding: 10px;
+    text-align: left;
+    text-shadow: 1px 1px 1px #fff;
+}
+tbody td {
+    border: solid 1px #DDEEEE;
+    color: #333;
+    padding: 10px;
+    text-shadow: 1px 1px 1px #fff;
+}
+</style>
+
+
 --
 var myApp = angular.module('myApp', []);
 
 function MyCtrl($scope) {
-		//$scope.isT = '1';
+		$scope.thresLambdaQT = 9;
+    $scope.thresMarathonQT = 9;
     $scope.items = [
         {
         name: 'Misko',
-        title: 1},
+        lambdaQueueTime: 5, 
+        marathonQueueTime: 10},
         {
         name: 'Igor',
-        title: 10},
+        lambdaQueueTime: 10, 
+        marathonQueueTime: 3},
         {
         name: 'Vojta',
-        title: 2}
+        lambdaQueueTime: 2, 
+        marathonQueueTime: 7}
 
     ];
 }
-
-
-
