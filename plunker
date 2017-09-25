@@ -69,3 +69,43 @@ $(document).ready(function() {
         });
     });
 });
+
+
+--
+<div ng-controller="MyCtrl" >
+
+    <input type="text" ng-model="isT" placeholder="enter a color name">
+
+    <div ng-repeat="item in items" ng-class="{'pending-delete': item.checked}">
+    <span class="ng-style: item.title < isT && {color:'red'};">
+      name: {{item.name}}, {{item.title}}
+      </span>
+        <input type="checkbox" ng-model="isT"> <span ng-show="item.checked">(will be deleted)</span>
+   </div>
+   <p>
+   <div ng-hide="myColor== 'red'">I will hide if the color is set to 'red'.</div>
+   <span class="ng-style: isT=='1' && {color:'red'};">
+     <td>Sample Text</td>
+   </span>
+</div>
+--
+var myApp = angular.module('myApp', []);
+
+function MyCtrl($scope) {
+		//$scope.isT = '1';
+    $scope.items = [
+        {
+        name: 'Misko',
+        title: 1},
+        {
+        name: 'Igor',
+        title: 10},
+        {
+        name: 'Vojta',
+        title: 2}
+
+    ];
+}
+
+
+
