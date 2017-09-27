@@ -71,35 +71,29 @@ $(document).ready(function() {
 });
 
 
---
+--------------------------------
 <div ng-controller="MyCtrl" >
   <table>
   <thead>
         <tr>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Height</th>
-            <th>Born</th>
-            <th>Salary</th>
+            <th>Application Name</th>
+            <th>D1</th>
+            <th>D2</th>
+            <th>D3</th>
+            <th>D4</th>
+            <th>Avg.</th>
+            <th>Factor<br><input type="text" ng-model="thresFactor" placeholder="Enter a threshold factor"></th>
         </tr>
     </thead>
-    <tbody>
-  <tr>
-  <td>Threshold</td>
-  <td><input type="text" ng-model="thresLambdaQT" placeholder="enter a color name"></td>
-  <td><input type="text" ng-model="thresMarathonQT" placeholder="enter a color name">  </td>
-    
-  </tr>
-  </tbody>
+
   
   
-  <tbody data-ng-repeat="i in [1,2,3,4,5]">
+  <tbody>
     <tr ng-repeat="item in items">
       
         <td>{{item.name}}</td>
-        <td><span class="ng-style: item.lambdaQueueTime > thresLambdaQT && !!thresLambdaQT && {color:'red'};">{{item.lambdaQueueTime}}</span></td>
-        <td><span class="ng-style: item.marathonQueueTime > thresMarathonQT && !!thresMarathonQT && {color:'red'};">{{item.marathonQueueTime}}</span></td>
-        
+        <td ng-repeat="d in item.val" ng-class="{'highlight': d > avgIncome(item.val)*thresFactor && !!thresFactor}">{{d}}</td>
+        <td>{{avgIncome(item.val)}}</td>
       
     </tr>
    
@@ -131,28 +125,36 @@ tbody td {
     padding: 10px;
     text-shadow: 1px 1px 1px #fff;
 }
+.highlight { 
+  background-color: red;
+  color: white;
+}
 </style>
 
 
---
+--------------
 var myApp = angular.module('myApp', []);
 
 function MyCtrl($scope) {
-		$scope.thresLambdaQT = 9;
-    $scope.thresMarathonQT = 9;
+		$scope.thresFactor = 1.5;
     $scope.items = [
         {
         name: 'Misko',
-        lambdaQueueTime: 5, 
-        marathonQueueTime: 10},
+        val: [5, 1, 1, 2]},
         {
         name: 'Igor',
-        lambdaQueueTime: 10, 
-        marathonQueueTime: 3},
+        val: [5, 0, 5, 2]},
         {
         name: 'Vojta',
-        lambdaQueueTime: 2, 
-        marathonQueueTime: 7}
+       val: [5, 8, 5, 2]}
 
     ];
+    $scope.avgIncome = function(arr) {
+    	var total = 0;
+        for (var i=0; i<arr.length; i++) {
+        	total += arr[i]; 
+        }
+        var avg = total/arr.length
+        return avg.toFixed(2);
+    };
 }
